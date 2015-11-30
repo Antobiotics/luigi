@@ -281,7 +281,10 @@ class _DateParameterBase(Parameter):
         """
         if dt is None:
             return str(dt)
-        return dt.strftime(self.date_format)
+        try:
+            return dt.strftime(self.date_format)
+        except AttributeError:
+            return dt
 
     @classmethod
     def next_in_enumeration(cls, value):
