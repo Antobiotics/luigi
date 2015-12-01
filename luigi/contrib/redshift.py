@@ -182,7 +182,7 @@ class S3CopyToTable(rdbms.CopyToTable):
             cursor.close()
 
     def prune(self, connection):
-        query = "delete from %s where %s >= %s" % (self.prune_table, self.prune_column, self.prune_date)
+        query = "delete from %s where %s >= '%s'" % (self.prune_table, self.prune_column, self.prune_date)
         cursor = connection.cursor()
         try:
             cursor.execute(query)
@@ -231,7 +231,7 @@ class S3CopyToTable(rdbms.CopyToTable):
         if not (self.table):
             raise Exception("table need to be specified")
 
-        path = self.s3_load_path()
+        path = self.s3_load_path
         output = self.output()
         connection = output.connect()
         cursor = connection.cursor()
